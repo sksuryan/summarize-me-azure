@@ -11,6 +11,6 @@
 - Run the database server.
 - Open mysql cli and create db, user and add permissions:
   - `create database summarize;`.
-  - `create user summarize@'localhost' identified by 'summarize.123';`
+  - `create user 'summarize'@'localhost' identified by 'summarize.123';`
   - `grant all privileges on summarize.* to 'summarize'@'localhost';`
 - Run `flask db upgrade` to apply migrations to your database.
