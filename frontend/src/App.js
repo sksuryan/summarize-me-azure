@@ -1,5 +1,7 @@
 import "bulma";
+import { useState } from "react";
 import styled from "styled-components";
+
 import Nav from "./components/Nav";
 import Upload from "./components/Upload";
 
@@ -21,11 +23,12 @@ const Body = styled.section`
 `;
 
 function App() {
+  const [video, setVideo] = useState({ video: null });
   return (
     <Container>
       <Nav />
       <Body>
-        <Upload />
+        <Upload setVideo={setVideo} video={video} />
       </Body>
     </Container>
   );
