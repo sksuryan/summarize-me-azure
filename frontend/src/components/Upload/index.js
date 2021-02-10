@@ -39,7 +39,7 @@ const SubmitButton = styled.button`
   }
 `;
 
-const Upload = () => {
+const Upload = ({ setVideo, video }) => {
   return (
     <Container>
       <div className="field">
@@ -50,6 +50,7 @@ const Upload = () => {
               type="file"
               name="resume"
               accept="video/mp4"
+              onChange={(e) => setVideo(e.target.files[0])}
             />
             <span className="file-cta">
               <span className="file-icon">
@@ -57,7 +58,9 @@ const Upload = () => {
               </span>
               <span className="file-label">Upload!</span>
             </span>
-            <span className="file-name">example-resume.mp4</span>
+            <span className="file-name">
+              {video.name ? video.name : "example-video.mp4"}
+            </span>
           </label>
         </div>
       </div>
