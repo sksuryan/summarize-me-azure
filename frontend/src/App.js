@@ -1,7 +1,7 @@
 import "bulma";
 import { useState } from "react";
 import styled from "styled-components";
-
+import Player from './components/Player'
 import Nav from "./components/Nav";
 import Upload from "./components/Upload";
 
@@ -29,6 +29,7 @@ function App() {
       <Nav />
       <Body>
         <Upload setVideo={setVideo} video={video} />
+        <Player video={video} />
       </Body>
     </Container>
   );
