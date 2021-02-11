@@ -1,9 +1,10 @@
 import "bulma";
 import { useState } from "react";
 import styled from "styled-components";
-import Player from './components/Player'
+
 import Nav from "./components/Nav";
 import Upload from "./components/Upload";
+import Grid from "./components/Grid";
 
 const Container = styled.div`
   width: 90%;
@@ -19,7 +20,9 @@ const Body = styled.section`
   flex-direction: column;
 
   align-items: center;
-  justify-content: center;
+  justify-content: ${(props) => (props.video.name ? "initial" : "center")};
+
+  padding-top: 10vh;
 `;
 
 function App() {
@@ -27,9 +30,9 @@ function App() {
   return (
     <Container>
       <Nav />
-      <Body>
-        <Upload setVideo={setVideo} video={video} />
-        <Player video={video} />
+      <Body video={video}>
+        {!video.name && <Upload setVideo={setVideo} video={video} />}
+        {video.name && <Grid video={video} />}
       </Body>
     </Container>
   );

@@ -26,4 +26,8 @@ export const Logo = styled.h1`
 
     user-select: none;
   }
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
