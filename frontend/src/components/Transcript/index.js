@@ -7,8 +7,9 @@ const TranscriptContainer = styled.p`
 
   font-family: var(--primary-font);
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 400;
   text-align: justify;
+  color: black;
 
   padding: 0 24px;
   overflow-y: auto;
@@ -40,7 +41,7 @@ const Transcript = ({ videoContainer }) => {
 
   return (
     <TranscriptContainer height={height}>
-      Transcript shows up here 😇
+      Transcript shows up here :D
     </TranscriptContainer>
   );
 };

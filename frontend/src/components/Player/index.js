@@ -7,6 +7,7 @@ export default class Player extends React.Component {
     return (
       <div>
         <ReactPlayer
+          ref={this.props.VideoPlayer}
           className="react-player"
           url={URL.createObjectURL(this.props.video)}
           width="100%"
