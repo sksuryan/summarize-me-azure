@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import styled from "styled-components";
 import Player from "../Player";
+import TimeStamps from "../TimeStamps";
 import Transcript from "../Transcript";
 
 const Container = styled.section`
@@ -27,15 +28,21 @@ const VideoContainer = styled.div`
 
 const Grid = ({ video }) => {
   const videoContainer = useRef(null);
+  const VideoPlayer = useRef(null);
+
+  const seekVideoPlayer = (amount) => {
+    VideoPlayer.current.seekTo(amount);
+  };
 
   return (
     <Container>
       <SecondaryContainer>
         <VideoContainer ref={videoContainer}>
-          <Player video={video} />
+          <Player video={video} VideoPlayer={VideoPlayer} />
         </VideoContainer>
         <Transcript videoContainer={videoContainer} />
       </SecondaryContainer>
+      <TimeStamps seekVideoPlayer={seekVideoPlayer} />
     </Container>
   );
 };
