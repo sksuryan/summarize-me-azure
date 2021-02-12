@@ -40,7 +40,8 @@ const Grid = ({ video }) => {
         <VideoContainer ref={videoContainer}>
           <Player video={video} VideoPlayer={VideoPlayer} />
         </VideoContainer>
-        <Transcript videoContainer={videoContainer} />
+        <Transcript videoContainer={videoContainer}
+        transcript ={'The transcript'} />
       </SecondaryContainer>
       <TimeStamps seekVideoPlayer={seekVideoPlayer} />
     </Container>

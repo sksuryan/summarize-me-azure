@@ -25,9 +25,11 @@ const TranscriptContainer = styled.p`
   }
 `;
 
-const Transcript = ({ videoContainer }) => {
+const Transcript = ({ videoContainer , transcript}) => {
   const [height, setHeight] = useState(null);
-
+  const onSubmit = ()=>{
+    window.download('Transcript.txt', transcript);
+  }
   useEffect(() => {
     let { current } = videoContainer;
     window.addEventListener("resize", () => setHeight(current.clientHeight));
@@ -41,7 +43,8 @@ const Transcript = ({ videoContainer }) => {
 
   return (
     <TranscriptContainer height={height}>
-      Transcript shows up here :D
+      {transcript}
+      <button onClick={onSubmit}>Download</button>
     </TranscriptContainer>
   );
 };
