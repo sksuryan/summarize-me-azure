@@ -37,13 +37,17 @@ const Grid = ({ video }) => {
   return (
     <Container>
       <SecondaryContainer>
-        <VideoContainer ref={videoContainer}>
-          <Player video={video} VideoPlayer={VideoPlayer} />
+        <VideoContainer>
+          <div ref={videoContainer}>
+            <Player video={video} VideoPlayer={VideoPlayer} />
+          </div>
+          <TimeStamps seekVideoPlayer={seekVideoPlayer} />
         </VideoContainer>
-        <Transcript videoContainer={videoContainer}
-        transcript ={'The transcript'} />
+        <Transcript
+          videoContainer={videoContainer}
+          transcript={"Your transcript shows up here :D"}
+        />
       </SecondaryContainer>
-      <TimeStamps seekVideoPlayer={seekVideoPlayer} />
     </Container>
   );
 };
