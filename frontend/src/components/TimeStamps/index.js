@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 const KeywordsContainer = styled.div`
+  margin-top: 8px;
+
   @media (min-width: 768px) {
     margin-top: 16px;
   }
@@ -20,6 +22,12 @@ const KeywordContainer = styled.div`
 
     margin-right: 16px;
     margin-top: 12px;
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+
+      margin-top: 8px;
+    }
   }
 `;
 
