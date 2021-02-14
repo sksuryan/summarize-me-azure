@@ -2,6 +2,8 @@ import os
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo, ObjectId
 
+from transcript import startProcessing
+
 app = Flask(__name__)
 app.secret_key = 'mysecret-summarize'
 
@@ -18,6 +20,9 @@ app.config['MAX_CONTENT_PATH'] = 8192
 
 mongo = PyMongo(app)
 
+
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
 
 @app.route('/videos', methods=['GET'])
 def get_videos():
@@ -56,19 +61,24 @@ def get_video(video_id):
 
 @app.route('/videos/create', methods=['POST'])
 def post_videos():
-    if not request.is_json:
-        return jsonify({ 'title': 'BAD_REQUEST', 'message': 'Invalid request format' }), 400
-    
+
     try:
-        request_data = request.get_json()
-        title = request_data['title']
+        video = request.files['video']
+
+        _, ext = os.path.splitext(video.filename)
+        ext = ext[1:]
+        if ext in ALLOWED_EXTENSIONS:
+            results = startProcessing(file=video, uploadFolderPath=app.config['UPLOAD_FOLDER'])
+        else:
+            results = {'message': 'File format not allowed'}
+            return jsonify(results), 400
     except KeyError as err:
         return jsonify({ 'title': 'BAD_REQUEST', 'message': f'Missing key {err}'}), 400
-    except Exception:
-        return jsonify({ 'title': 'BAD_REQUEST', 'message': 'Could not parse request data.'}), 400
+    except Exception as e:
+        return jsonify({ 'title': 'BAD_REQUEST', 'message': e}), 400
 
     # Do processing, get url, keywords, summary and transcript and then save
-    return jsonify({}), 200
+    return jsonify(results), 200
 
 
 

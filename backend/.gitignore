@@ -2,3 +2,5 @@
 /.vscode
 /env
 .env
+/static
+converted.wav
