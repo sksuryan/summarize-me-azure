@@ -1,7 +1,9 @@
-import os
+import os, json
 from flask_cors import CORS
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo, ObjectId
+
+from utils import hash_file
 
 from transcript import startProcessing
 
@@ -61,9 +63,9 @@ def get_video(video_id):
 
 @app.route('/videos/create', methods=['POST'])
 def post_videos():
-
     try:
         video = request.files['video']
+        video_hash = hash_file(video)
 
         _, ext = os.path.splitext(video.filename)
         ext = ext[1:]
@@ -75,9 +77,8 @@ def post_videos():
     except KeyError as err:
         return jsonify({ 'title': 'BAD_REQUEST', 'message': f'Missing key {err}'}), 400
     except Exception as e:
-        return jsonify({ 'title': 'BAD_REQUEST', 'message': e}), 400
+        return jsonify({ 'title': 'BAD_REQUEST', 'message': json.dumps(e)}), 400
 
-    # Do processing, get url, keywords, summary and transcript and then save
     return jsonify(results), 200
 
 
