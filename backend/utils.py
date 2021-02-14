@@ -6,6 +6,7 @@ def hash_file(file):
     # hash_key = hashlib.md5()
     
     hash_val = hashlib.md5(file.read()).hexdigest()
+    file.seek(0)
 
     return hash_val
 
