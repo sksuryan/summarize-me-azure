@@ -1,18 +1,18 @@
 import os
+from flask_cors import CORS
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo, ObjectId
 
 from transcript import startProcessing
 
 app = Flask(__name__)
+CORS(app)
 app.secret_key = 'mysecret-summarize'
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 UPLOAD_FOLDER = str(os.path.join(dir_path, 'static/uploads'))
 ALLOWED_EXTENSIONS = set(['mp4', 'mov', 'wmv', 'flv', 'avi', 'mkv'])
 
-# app.config['MONGO_DBNAME'] = 'hacker'
-# app.config['MONGO_URI'] = 'mongodb+srv://adi:w7yzWc4SYGCVmYG@cluster0.sgghn.mongodb.net/hacker?retryWrites=true&w=majority'
 app.config['MONGO_DBNAME'] = 'summarize'
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/summarize'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
