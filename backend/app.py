@@ -3,7 +3,7 @@ from flask_cors import CORS
 from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo, ObjectId
 
-from utils import hash_file
+from utils import hash_file, build_video_object
 
 from transcript import startProcessing
 
@@ -42,21 +42,14 @@ def get_videos():
     return jsonify(res), 200
 
 
-@app.route('/videos/<video_id>', methods=['GET'])
-def get_video(video_id):
-    video = mongo.db.videos.find_one({ '_id': ObjectId(video_id) })
+@app.route('/videos/<video_hash>', methods=['GET'])
+def get_video(video_hash):
+    video = mongo.db.videos.find_one({ 'hash': video_hash })
     
     if video is None:
         return jsonify({ 'title': 'NOT_FOUND', 'message': 'Video not found' }), 404
     
-    res = {
-        'id': str(video['_id']),
-        'title': video['title'],
-        'url': video['url'],
-        'keywords': video['keywords'],
-        'summary': video['summary'],
-        'transcript': video['transcript']
-    }
+    res = build_video_object(video)
 
     return jsonify(res), 200
 
@@ -65,7 +58,12 @@ def get_video(video_id):
 def post_videos():
     try:
         video = request.files['video']
+
         video_hash = hash_file(video)
+        video_data = mongo.db.videos.find_one({ 'hash': video_hash })
+        if video_data is not None:
+            res = build_video_object(video_data)
+            return jsonify(res), 200
 
         _, ext = os.path.splitext(video.filename)
         ext = ext[1:]
@@ -75,9 +73,12 @@ def post_videos():
             results = {'message': 'File format not allowed'}
             return jsonify(results), 400
     except KeyError as err:
-        return jsonify({ 'title': 'BAD_REQUEST', 'message': f'Missing key {err}'}), 400
+        return jsonify({ 'title': 'BAD_REQUEST', 'message': f'Missing key: {str(err)}'}), 400
     except Exception as e:
-        return jsonify({ 'title': 'BAD_REQUEST', 'message': json.dumps(e)}), 400
+        return jsonify({ 'title': 'BAD_REQUEST', 'message': (str(e))}), 400
+
+    results['hash'] = video_hash
+    mongo.db.videos.insert(build_video_object(results))
 
     return jsonify(results), 200
 
