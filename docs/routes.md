@@ -1,6 +1,6 @@
 ## Route: POST "/videos/create"
 
-Fetch created sprints a user from the database
+Get the transcribed video, transcript and summary
 
 ### Request:
 | Name	| Type 	    | In  	| Description  	                       |
