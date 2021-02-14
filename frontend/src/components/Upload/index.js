@@ -44,7 +44,7 @@ const SubmitButton = styled.button`
 const Upload = ({ setVideo, video, setData }) => {
   const [uploadStatus, setUploadStatus] = useState(null);
   const onSubmit = (e) => {
-    const URL = "http://localhost:5000/videos/create";
+    const URL = "https://13.71.42.117:8080/videos/create";
 
     if (video) {
       const formData = new FormData();

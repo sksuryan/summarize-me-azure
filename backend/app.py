@@ -16,7 +16,7 @@ UPLOAD_FOLDER = str(os.path.join(dir_path, 'static/uploads'))
 ALLOWED_EXTENSIONS = set(['mp4', 'mov', 'wmv', 'flv', 'avi', 'mkv'])
 
 app.config['MONGO_DBNAME'] = 'summarize'
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/summarize'
+app.config['MONGO_URI'] = os.getenv('MONGO_URI')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_PATH'] = 8192
 
