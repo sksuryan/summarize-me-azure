@@ -42,7 +42,7 @@ Distributed under the MIT License. See LICENSE for more information.
 - When you make very very minor changes to a PR of yours (like for example fixing a text in button, minor changes requested by reviewers) make sure you squash your commits afterward so that you don't have too many commits for a very small fix.
 - When you're submitting a PR for a UI-related issue, it would be really awesome if you add a screenshot of your change or a link to a deployment where it can be tested out along with your PR. It makes it very easy for the reviewers and you'll also get reviews quicker.
 
-If you want a live-demo of the application, click [`here`]()
+If you want a live-demo of the application, click [`here`](https://summarise.xyz)
 
 Made with :heart: by [Vrushti Mody](https://github.com/vrushti-mody), [Saurabh Kumar Suryan](https://github.com/sksuryan), [Vidhi Gupta](https://github.com/vidhigupta9) and [Aditya Chakrabhorti](https://github.com/thealphaversion) for the HackerEarth Hack-2021 hackathon!
 
