@@ -1,10 +1,26 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const KeywordsContainer = styled.div`
   margin-top: 8px;
 
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 1fr;
+
+  & div {
+    display: flex;
+    justify-content: end;
+
+    width: 100%;
+  }
+
   @media (min-width: 768px) {
     margin-top: 16px;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
   }
 `;
 
@@ -21,12 +37,12 @@ const KeywordContainer = styled.div`
     color: black;
 
     margin-right: 16px;
-    margin-top: 12px;
+    margin-top: 4px;
 
     @media (max-width: 768px) {
       font-size: 14px;
 
-      margin-top: 8px;
+      margin-top: 4px;
     }
   }
 `;
@@ -46,20 +62,43 @@ const TimeStamp = styled.button`
   cursor: pointer;
 `;
 
-const TimeStamps = ({ seekVideoPlayer }) => {
+const TimeStamps = ({ seekVideoPlayer, timestamps }) => {
+  const [searchValue, setSearchValue] = useState(null);
+  const keywords = Object.keys(timestamps).filter((keyword) => {
+    if (searchValue) {
+      const value = keyword.substr(0, searchValue.length);
+      if (value === searchValue) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return true;
+  });
+
   return (
-    <KeywordsContainer>
-      <KeywordContainer>
-        <h3>keyword: </h3>
-        <TimeStamp onClick={() => seekVideoPlayer(500)}>00:01:30</TimeStamp>
-        <TimeStamp onClick={() => seekVideoPlayer(700)}>00:04:06</TimeStamp>
-      </KeywordContainer>
-      <KeywordContainer>
-        <h3>another keyword: </h3>
-        <TimeStamp onClick={() => seekVideoPlayer(500)}>00:01:30</TimeStamp>
-        <TimeStamp onClick={() => seekVideoPlayer(700)}>00:04:06</TimeStamp>
-      </KeywordContainer>
-    </KeywordsContainer>
+    <>
+      <input
+        className="input is-black"
+        type="text"
+        placeholder="Search keywords"
+        onChange={(e) => setSearchValue(e.target.value)}
+      />
+      <KeywordsContainer>
+        {keywords.map((timestamp, i) => (
+          <KeywordContainer key={i}>
+            <h3>{timestamp}: </h3>
+            <div>
+              {timestamps[timestamp].map((time, i) => (
+                <TimeStamp key={i} onClick={() => seekVideoPlayer(time)}>
+                  {time}
+                </TimeStamp>
+              ))}
+            </div>
+          </KeywordContainer>
+        ))}
+      </KeywordsContainer>
+    </>
   );
 };
 

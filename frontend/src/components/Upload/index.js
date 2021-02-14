@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useState } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -39,7 +41,36 @@ const SubmitButton = styled.button`
   }
 `;
 
-const Upload = ({ setVideo, video }) => {
+const Upload = ({ setVideo, video, setData }) => {
+  const [uploadStatus, setUploadStatus] = useState(null);
+  const onSubmit = (e) => {
+    const URL = "http://localhost:5000/videos/create";
+
+    if (video) {
+      const formData = new FormData();
+      formData.append("video", video);
+      console.log("started");
+      axios
+        .post(URL, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          onUploadProgress: (progressEvent) => {
+            const percentage = Math.round(
+              (progressEvent.loaded / progressEvent.total) * 100
+            );
+
+            setUploadStatus(percentage);
+          },
+        })
+        .then((res) => {
+          setUploadStatus(null);
+          setData(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
   return (
     <Container>
       <div className="field">
@@ -61,10 +92,18 @@ const Upload = ({ setVideo, video }) => {
             <span className="file-name">
               {video.name ? video.name : "example-video.mp4"}
             </span>
+            {uploadStatus && (
+              <progress className="progress" value={uploadStatus} max="100" />
+            )}
           </label>
         </div>
       </div>
-      <SubmitButton>Upload!</SubmitButton>
+      <SubmitButton
+        className={uploadStatus && "button is-loading"}
+        onClick={onSubmit}
+      >
+        Upload!
+      </SubmitButton>
     </Container>
   );
 };
