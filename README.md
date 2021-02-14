@@ -21,7 +21,7 @@ Summarize.me is a fast and powerful application that reduces a long, archived vi
 - Students can also download the summarized version on the video
 
 ## Tech Stack
-![Languages](https://img.shields.io/github/languages/count/vrushti-mody/Expensify-App)
+![Languages](https://img.shields.io/github/languages/count/sksuryan/summarize-me)
 - Javascript
 - React
 - Python
@@ -44,5 +44,5 @@ Distributed under the MIT License. See LICENSE for more information.
 
 If you want a live-demo of the application, click [`here`]()
 
-Made with :heart: by [Vrushti Mody](https://github.com/vrushti-mody), [Saurabh Kumar Suryan](https://github.com/sksuryan), [Vidhi Gupta](https://github.com/vidhigupta9) and [Aditya Chakrabhorti](https://github.com/thealphaversion) for thr HackerEarth Hack-2021 hackathon!
+Made with :heart: by [Vrushti Mody](https://github.com/vrushti-mody), [Saurabh Kumar Suryan](https://github.com/sksuryan), [Vidhi Gupta](https://github.com/vidhigupta9) and [Aditya Chakrabhorti](https://github.com/thealphaversion) for the HackerEarth Hack-2021 hackathon!
 
