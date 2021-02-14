@@ -2,6 +2,7 @@ import os
 import json
 import time
 from pydub import AudioSegment
+from process import generate_summary, keyword_processing
 from werkzeug.utils import secure_filename
 import azure.cognitiveservices.speech as speechsdk
 
@@ -59,7 +60,8 @@ def processAudio():
 def processResults(results):
   processedResults = {}
   processedResults['transcript'] = ''
-  processedResults['words'] = []
+  
+  wordStamps = {}
 
   for result in results:
     text = processedResults['transcript']
@@ -72,11 +74,33 @@ def processResults(results):
     words = stt['NBest'][best_index]['Words']
 
     for word in words:
-      wordData = {}
-      wordData['word'] = word['Word']
-      wordData['offset'] = word['Offset']/10000000
-      
-      processedResults['words'].append(wordData)
+      value = word['Word']
+      if value not in wordStamps.keys():
+        wordStamps[value] = []
+        seconds = word['Offset']/10000000
+        wordStamps[value].append(seconds)
+      else:
+        wordStamps[value].append(seconds)
+
+  keywords = []
+  keywordsWithStamps = {}
+
+  #keywords
+  returnedKeywords = keyword_processing(processedResults['transcript'])
+  for keyword in returnedKeywords:
+    splitWords = keyword.split()
+    keywords.extend(splitWords)
+
+  for keyword in keywords:
+    if keyword not in keywordsWithStamps.keys():
+      if keyword in wordStamps.keys():
+        keywordsWithStamps[keyword] = []
+        keywordsWithStamps[keyword].extend(wordStamps[keyword])
+
+  processedResults['keywords'] = keywordsWithStamps
+
+  #get summary
+  processedResults['summary'] = generate_summary(processedResults['transcript'])
 
   return processedResults
 
