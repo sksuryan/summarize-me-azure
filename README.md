@@ -1,5 +1,5 @@
-# Summarize.me
-![Summarize.me](https://www.summarizebot.com/img/favicon.png)
+# Summarize-me
+![Summarize-me](https://www.summarizebot.com/img/favicon.png)
 
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)]() 
@@ -34,7 +34,7 @@ Distributed under the MIT License. See LICENSE for more information.
 
 ## Contribution Guidelines
 [![PR's Welcome](https://img.shields.io/github/issues-pr-raw/sksuryan/summarize-me)]()
-[![Contributors](https://img.shields.io/github/contributors/sksuryan/summarize-me/)]()
+[![Contributors](https://img.shields.io/github/contributors/sksuryan/summarize-me)]()
 
 
 - Write clear meaningful git commit messages
