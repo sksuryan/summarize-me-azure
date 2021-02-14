@@ -26,7 +26,7 @@ const VideoContainer = styled.div`
   }
 `;
 
-const Grid = ({ video }) => {
+const Grid = ({ video, data }) => {
   const videoContainer = useRef(null);
   const VideoPlayer = useRef(null);
 
@@ -41,11 +41,14 @@ const Grid = ({ video }) => {
           <div ref={videoContainer}>
             <Player video={video} VideoPlayer={VideoPlayer} />
           </div>
-          <TimeStamps seekVideoPlayer={seekVideoPlayer} />
+          <TimeStamps
+            seekVideoPlayer={seekVideoPlayer}
+            timestamps={data.keywords}
+          />
         </VideoContainer>
         <Transcript
           videoContainer={videoContainer}
-          transcript={"Your transcript shows up here :D"}
+          transcript={data.transcript}
         />
       </SecondaryContainer>
     </Container>

@@ -20,19 +20,23 @@ const Body = styled.section`
   flex-direction: column;
 
   align-items: center;
-  justify-content: ${(props) => (props.video.name ? "initial" : "center")};
+  justify-content: ${(props) => (props.data ? "initial" : "center")};
 
   padding-top: 10vh;
 `;
 
 function App() {
   const [video, setVideo] = useState({ video: null });
+  const [data, setData] = useState(null);
+
   return (
     <Container>
       <Nav />
-      <Body video={video}>
-        {!video.name && <Upload setVideo={setVideo} video={video} />}
-        {video.name && <Grid video={video} />}
+      <Body data={data}>
+        {!data && (
+          <Upload setVideo={setVideo} video={video} setData={setData} />
+        )}
+        {data && <Grid video={video} data={data} />}
       </Body>
     </Container>
   );
