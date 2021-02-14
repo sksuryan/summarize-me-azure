@@ -75,7 +75,7 @@ def post_videos():
     except KeyError as err:
         return jsonify({ 'title': 'BAD_REQUEST', 'message': f'Missing key: {str(err)}'}), 400
     except Exception as e:
-        return jsonify({ 'title': 'BAD_REQUEST', 'message': (str(e))}), 400
+        return jsonify({ 'title': 'ERROR', 'message': (str(e))}), 400
 
     results['hash'] = video_hash
     mongo.db.videos.insert(build_video_object(results))
