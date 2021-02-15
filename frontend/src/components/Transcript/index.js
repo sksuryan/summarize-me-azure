@@ -17,7 +17,8 @@ const TranscriptContainer = styled.div`
   overflow-y: auto;
 
   @media (max-width: 1200px) {
-    padding: 24px 0;
+    padding: 6px 0;
+    padding-bottom: 16px;
     height: initial;
     width: 100%;
   }
@@ -25,6 +26,8 @@ const TranscriptContainer = styled.div`
   @media (max-width: 768px) {
     font-size: 14px;
   }
+
+  z-index: 0;
 `;
 
 const DownloadDiv = styled.div`
