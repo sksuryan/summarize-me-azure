@@ -44,12 +44,11 @@ const SubmitButton = styled.button`
 const Upload = ({ setVideo, video, setData }) => {
   const [uploadStatus, setUploadStatus] = useState(null);
   const onSubmit = (e) => {
-    const URL = "https://summariz.herokuapp.com/videos/create";
+    const URL = "https://summariz.azurewebsites.net/videos/create";
 
     if (video) {
       const formData = new FormData();
       formData.append("video", video);
-      console.log("started");
       axios
         .post(URL, formData, {
           headers: {
@@ -59,7 +58,6 @@ const Upload = ({ setVideo, video, setData }) => {
             const percentage = Math.round(
               (progressEvent.loaded / progressEvent.total) * 100
             );
-
             setUploadStatus(percentage);
           },
         })

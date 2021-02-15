@@ -1,7 +1,11 @@
-import os, json
+import os
+
+from dotenv import load_dotenv
+load_dotenv()
+
 from flask_cors import CORS
 from flask import Flask, jsonify, request
-from flask_pymongo import PyMongo, ObjectId
+from flask_pymongo import PyMongo
 
 from utils import hash_file, build_video_object
 
@@ -78,11 +82,11 @@ def post_videos():
         return jsonify({ 'title': 'ERROR', 'message': (str(e))}), 400
 
     results['hash'] = video_hash
-    mongo.db.videos.insert(build_video_object(results))
+    mongo.db.videos.insert_one(build_video_object(results))
 
     return jsonify(results), 200
 
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0',port=os.getenv('PORT'))

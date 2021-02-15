@@ -3,6 +3,6 @@ RUN apt-get update
 RUN apt-get -y install ffmpeg libavcodec-extra
 COPY . /app
 WORKDIR /app
-ENV PORT 8080
 RUN pip install -r requirements.txt
-CMD gunicorn -b 0.0.0.0:$PORT app:app
+RUN python -m nltk.downloader -d /usr/local/share/nltk_data all
+CMD gunicorn -b 0.0.0.0:$PORT --timeout 60 app:app
